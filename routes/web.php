@@ -18,5 +18,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'swagger'], function () {
     Route::get('json', 'SwaggerController@getJSON');
     Route::get('my-data', 'SwaggerController@getMyData');
-    Route::get('ui', 'SwaggerController@index');
+    Route::get('my-name', 'SwaggerController@getName');
+    Route::get('my-age', 'SwaggerController@getAge');
 });
