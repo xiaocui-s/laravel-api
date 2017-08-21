@@ -102,6 +102,7 @@
     <form id='api_selector'>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div id='auth_container'></div>
+      <div class='input'><input id="token" name="token" type="text" placeholder="接口令牌值" /></div>
       <div class='input'><a class="header__btn" href="/swagger/json" data-sw-translate>更新</a></div>
     </form>
   </div>
@@ -111,3 +112,37 @@
 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>
+<script>
+    //初始化接口授权
+    $(function () {
+        $('#token').change(addApiKeyAuthorization);
+    })
+
+    function addApiKeyAuthorization()
+    {
+        var apiName = $("#apiName").val();
+        if(!apiName || apiName.trim() == ''){
+            apiName = "token";
+        }
+
+        var apiPosition = $("#apiPosition").val();
+        if(!apiPosition || apiPosition.trim() == ''){
+            apiPosition = "header";
+        }
+
+        var apiKey = encodeURIComponent($('#token').val());
+        if (apiKey && apiKey.trim() != "") {
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(
+                apiName, apiKey, apiPosition);
+            window.swaggerUi.api.clientAuthorizations.add(apiName,
+                apiKeyAuth);
+            log("added key " + apiKey);
+        }
+    }
+
+    function log() {
+        if ('console' in window) {
+            console.log.apply(console, arguments);
+        }
+    }
+</script>

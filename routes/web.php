@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['prefix' => 'swagger'], function () {
     Route::get('json', 'SwaggerController@getJSON');
     Route::get('my-data', 'SwaggerController@getMyData');
     Route::get('my-name', 'SwaggerController@getName');
     Route::get('my-age', 'SwaggerController@getAge');
+    Route::post('login', 'SwaggerController@login');
 });
+
+Auth::routes();
+
+Route::get('/', 'SwaggerController@getJSON');
