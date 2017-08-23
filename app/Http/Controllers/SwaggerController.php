@@ -182,6 +182,10 @@ class SwaggerController extends Controller
 
     private function isToken($token)
     {
+        if (empty(session('token'))) {
+            return false;
+        }
+
         if ($token == session('token')) {
             return true;
         }
